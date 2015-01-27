@@ -27,6 +27,7 @@ public class ScanNetwork {
 
 		checkHosts();
 		checkHostsAtPort(45017);
+		
 
 	}
 

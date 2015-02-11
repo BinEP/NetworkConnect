@@ -41,7 +41,7 @@ public class NewFont {
 
 		try {
 
-			fontPath = "Fonts/" + fontPath + ".ttf";
+			fontPath = "InfoFiles/Fonts/" + fontPath + ".ttf";
 			this.path = fontPath;
 
 			InputStream fontStream = new BufferedInputStream(
@@ -51,7 +51,7 @@ public class NewFont {
 					.getLocalGraphicsEnvironment();
 			customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream);
 			ge.registerFont(customFont);
-		} catch (IOException | FontFormatException e) {
+		} catch (Exception e) {
 			// Handle exception
 			e.printStackTrace();
 		}

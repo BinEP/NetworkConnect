@@ -1,5 +1,9 @@
 package networkGoFish;
 
+import goFishCommons.Button;
+import goFishCommons.Card;
+import goFishCommons.Winner;
+
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,7 +60,7 @@ public class GoFishGameState implements Serializable {
 	public int numOfPlayers = 2;
 	public ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>(
 			numOfPlayers);
-	public ArrayList<Buttons> buttons = new ArrayList<Buttons>();
+	public ArrayList<Button> button = new ArrayList<Button>();
 	public ArrayList<ArrayList<Card>> restOfDeck = new ArrayList<ArrayList<Card>>();
 
 	public int turn;
@@ -206,7 +210,7 @@ public class GoFishGameState implements Serializable {
 		deck.clear();
 		hands.clear();
 		restOfDeck.clear();
-		buttons.clear();
+		button.clear();
 		turn = 1;
 		playing = true;
 		endGame = false;
@@ -224,8 +228,8 @@ public class GoFishGameState implements Serializable {
 
 	public void setUpButtons() {
 
-		buttons.add(new Buttons("Pair", 370, 250, 80, 50));
-		buttons.add(new Buttons("Ask", 50, 250, 80, 50));
+		button.add(new Button("Pair", 370, 250, 80, 50));
+		button.add(new Button("Ask", 50, 250, 80, 50));
 	}
 
 	public void shuffleDeck() {

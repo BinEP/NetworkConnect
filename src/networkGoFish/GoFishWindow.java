@@ -1,5 +1,8 @@
 package networkGoFish;
 
+import goFishCommons.Button;
+import goFishCommons.Card;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -119,26 +122,25 @@ public class GoFishWindow extends JFrame {
 				g.setFont(new Font(customFontName, Font.BOLD, 60));
 				// g.setFont(customFont.deriveFont(Font.BOLD, 60));
 
-				CenteredText title1 = new CenteredText("GO FISH!!", 500, 500,
-						g, true, 230);
+				CenteredText.draw("GO FISH!!", 230, g);
 
 				g.setFont(new Font(customFontName, Font.BOLD, 20));
 
-				// CenteredText start1 = new CenteredText("Press Enter to", 500,
+				// CenteredText.draw("Press Enter to", 500,
 				// 500, g, true, 350);
-				// CenteredText start2 = new CenteredText("Start", 500, 500, g,
+				// CenteredText.draw("Start", 500, 500, g,
 				// true, 380);
 				if (state == null) {
-					CenteredText messageFromTheHub = new CenteredText(
-							"Waiting for Others...", 500, 500, g, true, 440);
+					CenteredText.draw(
+							"Waiting for Others...", 440, g);
 
 				} else {
 
-					CenteredText messageFromTheHub = new CenteredText(
-							state.messageFromServer[0], 500, 500, g, true, 320);
+					CenteredText.draw(
+							state.messageFromServer[0], 320, g);
 
-					CenteredText messageFromTheHub1 = new CenteredText(
-							state.messageFromServer[1], 500, 500, g, true, 350);
+					CenteredText.draw(
+							state.messageFromServer[1], 350, g);
 
 				}
 
@@ -154,45 +156,39 @@ public class GoFishWindow extends JFrame {
 			if (state.playing) {
 
 				drawPlayerHand(myID - 1, g, 350);
-				// if (cheat) drawPlayerHand((myID == 1) ? 1 : 0, g, 10);
-
+				
 				// drawPlayerHand(1, g, 10);
 				// drawPlayerHand(2, g, 350);
 
-				state.buttons.get(0).drawRectangle(g);
-				state.buttons.get(1).drawRectangle(g);
+				state.button.get(0).drawRectangle(g);
+				state.button.get(1).drawRectangle(g);
 				g.setColor(Color.YELLOW);
 				g.fillRect(10, 40 + ((state.turn == myID) ? 1 : 0) * 350, 10,
 						30);
 				g.setColor(Color.WHITE);
+				
+				CenteredText.draw("" + state.restOfDeck.get(myID - 1).size(), new Rectangle(170, 270, 60, 50), g);
+				
+				CenteredText.draw("" + state.restOfDeck.get((myID == 1) ? 1 : 0).size(), new Rectangle(270, 270, 60, 50), g);
 
-				CenteredText leftPairs = new CenteredText(
-						Integer.toString((state.restOfDeck.get(myID - 1).size())),
-						60, 50, g);
-				CenteredText rightPairs = new CenteredText(
-						Integer.toString((state.restOfDeck.get((myID == 1) ? 1
-								: 0)).size()), 60, 50, g);
+				
+				CenteredText.draw("P" + myID, new Rectangle(170, 240, 60, 50), g);
+				CenteredText.draw("P" + ((myID == 1) ? 2 : 1), new Rectangle(270, 240, 60, 50), g);
 
-				CenteredText leftPairNum = new CenteredText("P" + myID, 60, 50,
-						g);
-				CenteredText rightPairNum = new CenteredText("P"
-						+ ((myID == 1) ? 2 : 1), 60, 50, g);
-
-				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
-				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
-				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
-				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
+//				g.drawString(leftPairs.text, 170 + leftPairs.x, 270);
+//				g.drawString(rightPairs.text, 270 + rightPairs.x, 270);
+//				
+//				g.drawString(leftPairNum.text, 170 + leftPairNum.x, 240);
+//				g.drawString(rightPairNum.text, 270 + rightPairNum.x, 240);
 
 				drawHandCover((myID == 1) ? 2 : 1, g);
 				g.setColor(Color.WHITE);
 				g.setFont(new Font(customFontName, Font.PLAIN, 15));
 				if (state != null) {
 
-					CenteredText messageFromTheHub = new CenteredText(
-							state.messageFromServer[1], 500, 500, g, true, 140);
+					CenteredText.draw(state.messageFromServer[1], 140, g);
 
-					CenteredText messageFromTheHub1 = new CenteredText(
-							state.messageFromServer[0], 500, 500, g, true, 170);
+					CenteredText.draw(state.messageFromServer[0], 170, g);
 				}
 
 			} else if (state.endGame) {
@@ -201,15 +197,12 @@ public class GoFishWindow extends JFrame {
 
 				g.setFont(new Font(customFontName, Font.BOLD, 60));
 
-				CenteredText win = new CenteredText("Player " + state.winner,
-						500, 500, g, true, 130);
-				CenteredText win1 = new CenteredText("Wins!!", 500, 500, g,
-						true, 210);
+				CenteredText.draw("Player " + state.winner, 130, g);
+				CenteredText.draw("Wins!!", 210, g);
 
 				g.setFont(new Font(customFontName, Font.BOLD, 26));
 
-				CenteredText restart = new CenteredText("Enter to Restart",
-						500, 500, g, true, 350);
+				CenteredText.draw("Click to Restart", 350, g);
 
 			}
 
@@ -219,7 +212,6 @@ public class GoFishWindow extends JFrame {
 
 			ArrayList<Card> hand = state.hands.get(pNum - 1);
 
-			// int y = (pNum == 1) ? 10 : 350;
 			int y = 10;
 			int i = 0;
 			int startX = 20;
@@ -274,17 +266,21 @@ public class GoFishWindow extends JFrame {
 
 				int x = getXCenter(hand, startX) + (spacing * i);
 				int y = startY;
-
-				CenteredText out = new CenteredText(card.getCardFace()
-						+ card.getSuitIcon(), 56, 100, g);
+				
 				g.setColor(card.getColor());
 				g.fillRoundRect(x, y, 56, 100, 5, 5);
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
+				
+				
 				g.setColor(Color.BLACK);
 				g.drawRoundRect(x, y, 56, 100, 5, 5);
+				
+				
 				g.setColor((card.getSuit() % 2 == 0) ? Color.RED : Color.BLACK);
-				g.drawString(card.getCardFace() + card.getSuitIcon(),
-						x + out.x, y + 56);
+				CenteredText.draw(card.getCardFace() + card.getSuitIcon(), new Rectangle(x, y, 56, 100), g);
+
+//				g.drawString(card.getCardFace() + card.getSuitIcon(),
+//						x + out.x, y + 56);
 
 				state.hands.get(myID - 1).get(i).setRectangle(x, y, 56, 100);
 
@@ -309,12 +305,15 @@ public class GoFishWindow extends JFrame {
 					.deriveFont(Font.BOLD);
 
 			ge.registerFont(customFont);
-			// Font customFont2 = Font.getFont("family", customFont);
-			// System.out.println(customFont.toString());
-			// System.out.println(customFont2.toString());
+			
+			
+			
 			customFontName = customFont.getFamily();
+			
 			String[] defaultFonts = { "Serif", "SansSerif", "Monospace",
 					"Dialog", "DialogInput" };
+			
+			
 			for (int i = 0; i < defaultFonts.length; i++) {
 				if (customFontName.contains(defaultFonts[i])) {
 
@@ -323,12 +322,8 @@ public class GoFishWindow extends JFrame {
 
 				}
 			}
-			System.out.println(customFontName);
-			// customFontName = customFontName.substring(0,
-			// customFontName.indexOf(' '));
 
-		} catch (IOException | FontFormatException e) {
-			// Handle exception
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -553,7 +548,15 @@ public class GoFishWindow extends JFrame {
 
 	public void pairings() {
 
-		ArrayList<Card> selectedCards = getSelected();
+		ArrayList<Card> selectedCards = new ArrayList<Card>();
+		selectedCards = getSelected();
+		
+		if (getSelected().size() > 2) {
+
+			selectedCards.subList(2, selectedCards.size()).clear();
+
+		}
+
 		if (checkIfValidPairs(selectedCards)) {
 
 			for (Card currentCard : selectedCards) {
@@ -656,7 +659,7 @@ public class GoFishWindow extends JFrame {
 
 	public void doClickedButtonAction(int x, int y) {
 
-		for (Buttons b : state.buttons) {
+		for (Button b : state.button) {
 
 			if (b.getButton().contains(new Point(x, y))) {
 
